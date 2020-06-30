@@ -1,7 +1,6 @@
 import os
 import numpy as np
-import resampy
-import soundfile as sf
+from random import shuffle
 from tensorflow.python.keras.utils.data_utils import Sequence
 os.sys.path.append('../models/research/audioset/yamnet')
 import params
@@ -17,6 +16,7 @@ def get_files_and_labels(train_dir, typ='wav', train_split=0.9):
     labels_val = dict()
     for cnt, i in enumerate(classes): # loop over classes
         tmp = os.listdir(train_dir+i)
+        shuffle(tmp)
         for j in tmp[:round(len(tmp)*train_split)]: # loop over training samples
             if j.split('.')[-1]==typ:
                 files_train.append(train_dir + i +'/' + j)
