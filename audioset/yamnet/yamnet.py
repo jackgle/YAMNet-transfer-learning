@@ -13,6 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
+# Modifications copyright (C) 2020 Jack LeBien
+
 """Core model definition of YAMNet."""
 
 import csv
