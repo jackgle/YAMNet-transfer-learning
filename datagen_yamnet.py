@@ -2,8 +2,6 @@ import os
 import numpy as np
 from random import shuffle
 from tensorflow.python.keras.utils.data_utils import Sequence
-os.sys.path.append('../models/research/audioset/yamnet')
-import params
 
 
 def get_files_and_labels(train_dir, typ='wav', train_split=0.9):
