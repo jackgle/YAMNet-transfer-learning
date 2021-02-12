@@ -110,7 +110,7 @@ def yamnet(features):
   return predictions
 
 
-
+# Jack LeBien edit 2020
 def yamnet_model():
     inpts = layers.Input(shape=(params.PATCH_FRAMES, params.PATCH_BANDS))
     net = layers.Reshape(

@@ -7,24 +7,21 @@ from tensorflow.python.keras.utils.data_utils import Sequence
 def get_files_and_labels(train_dir, typ='wav', train_split=0.9):
     
     classes = sorted(os.listdir(train_dir))
-    class_dict = dict(zip(range(0,len(classes)),classes))
     files_train = list()
-    labels_train = dict()
     files_val = list()
-    labels_val = dict()
+    labels = dict()
     for cnt, i in enumerate(classes): # loop over classes
         tmp = os.listdir(train_dir+i)
         shuffle(tmp)
         for j in tmp[:round(len(tmp)*train_split)]: # loop over training samples
             if j.split('.')[-1]==typ:
                 files_train.append(train_dir + i +'/' + j)
-                labels_train[i]=cnt
         for j in tmp[round(len(tmp)*train_split):]: # loop over validation samples
             if j.split('.')[-1]==typ:
                 files_val.append(train_dir + i +'/' + j)
-                labels_val[i]=cnt
+        labels[i]=cnt
                 
-    return files_train, labels_train, files_val, labels_val, class_dict
+    return files_train, files_val, labels
 
     
     
@@ -92,10 +89,16 @@ class DataGenerator(Sequence):
             class_id = ID.split('/')[-2]
             y[i,self.labels[class_id]] = 1
                         
-            X[i,] = np.load(ID)
+            sample = np.load(ID)
             
+            # if the waveform for this sample was long enough to contain multiple patches, randomly select one of the patches
+            if sample.shape[0] > 1:
+                sample = np.squeeze(sample[np.random.choice(range(sample.shape[0]), 1)])
+                
+            X[i,] = sample
+                
             if self.class_weights:
-                sample_weights[i] = self.class_weights[self.labels[species_id]]
+                sample_weights[i] = self.class_weights[self.labels[class_id]]
           
         
         if self.class_weights is not None:
