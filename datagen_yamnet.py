@@ -1,8 +1,7 @@
 import os
 import numpy as np
 from random import shuffle
-from tensorflow.python.keras.utils.data_utils import Sequence
-
+import tensorflow as tf
 
 def get_files_and_labels(train_dir, typ='wav', train_split=0.9):
     
@@ -25,7 +24,7 @@ def get_files_and_labels(train_dir, typ='wav', train_split=0.9):
 
     
     
-class DataGenerator(Sequence):
+class DataGenerator(tf.keras.utils.Sequence):
     
     'Generates YAMNet patches'
     def __init__(self, 
