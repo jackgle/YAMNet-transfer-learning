@@ -2,7 +2,7 @@ Code for transfer learning and fine-tuning with YAMNet
 
 This repo requires the code and weights file from the official yamnet directory to be downloaded: https://github.com/tensorflow/models/tree/master/research/audioset/yamnet.
 
-- `generate YAMNet input.ipynb` pre-computes spectrograms from audio files and stores them as `.npy` these are then loaded during training using a custom Tensorflow data generator defined in `datagen_yamnet.py`. Pre-computing the spectrograms greatly increases the speed of training / experimentation.
+- `generate YAMNet input.ipynb` pre-computes spectrograms from audio files and stores them as `.npy`. These are then loaded during training using a custom Tensorflow data generator defined in `datagen_yamnet.py`. Pre-computing the spectrograms greatly increases the speed of training / experimentation.
 
 - `fine-tune YAMNet.ipynb` sets up spectrogram data generators, loads AudioSet weights into YAMNet and adds a custom network top, and runs transfer learning and fine-tuning.
 
